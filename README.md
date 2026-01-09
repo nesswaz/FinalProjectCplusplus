@@ -76,6 +76,7 @@ project/
 │── modulProject.cpp           # Реализация модуля
 │── SaveContacts.txt           # Файл для сохранения данных
 │── WriteContacts.txt          # Файл для загрузки контактов в список
+│── project.h                  # Заголовочный файл
 │── README.md                  # Описание проекта
 ```
 
