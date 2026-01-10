@@ -127,8 +127,7 @@ void ManageContactsMenu(std::vector<InfoContact>& contacts) {
         std::cout << "4. Вернуться в основное меню" << std::endl;
         std::cin >> choice;
         if (std::cin.fail()) {
-            std::cout << "\nОшибка. Нужно ввести цифру от 1 до 4.\n";
-            std::cout << std::endl;
+            std::cout << "\nОшибка. Нужно ввести цифру от 1 до 4.\n\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
@@ -201,9 +200,7 @@ int GetIndex(const std::vector<InfoContact>& contacts) {
 
 void Search(std::vector <InfoContact>& contacts) {
     if (contacts.empty()) {
-        std::cout << std::endl;
-        std::cout << "Список контактов пуст.\n";
-        std::cout << std::endl;
+        std::cout << "\nСписок контактов пуст.\n\n";
         return;
     }
     bool found = false;
