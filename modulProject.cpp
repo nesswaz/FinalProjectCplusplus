@@ -8,10 +8,10 @@ void AddInformation(std::vector<InfoContact>& contacts) {
     //чтобы избежать прямого изменения вектора до завершения ввода
     InfoContact add;
     std::cout << "Введите имя контакта: "; 
-    std::cin >> add.name;
     // Очищаем буфер ввода, так как после std::cin
     // остаётся символ новой строки, который мешает getline
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, add.name);
     // Бесконечный цикл для телефона нужен, чтобы 
     //гарантировать получение корректных данных
     while (true) {
