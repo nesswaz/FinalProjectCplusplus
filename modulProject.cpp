@@ -184,7 +184,7 @@ int GetIndex(const std::vector<InfoContact>& contacts) {
     // Функция вынесена для повторного использования в разных операциях
     int index;
     while(true) {
-        std::cout << "Введите номер (№) контакта, который хотите редактировать: ";
+        std::cout << "Введите номер (№) контакта: ";
         std::cin >> index;
         // Проверяем fail() для защиты от ввода символов вместо чисел
         if (!std::cin.fail() && index >= 1 && index <= contacts.size()) {
