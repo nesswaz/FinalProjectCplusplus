@@ -1,9 +1,9 @@
 
-Маша, 899977789, testind@ya.ru
-тест, тест,
-тест
+РњР°С€Р°, 899977789, testind@ya.ru
+С‚РµСЃС‚, С‚РµСЃС‚,
+С‚РµСЃС‚
 
-Катя, +8888888888, katyatest@mail.ru
-Даша, 8999999999, dashatest@testing.ru
-Тест, тест
-Петя, +99999999, petyatest@gmail.com
+РљР°С‚СЏ, +8888888888, katyatest@mail.ru
+Р”Р°С€Р°, 8999999999, dashatest@testing.ru
+РўРµСЃС‚, С‚РµСЃС‚
+РџРµС‚СЏ, +99999999, petyatest@gmail.com

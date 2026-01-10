@@ -4,52 +4,52 @@
 #include <limits>
 
 void AddInformation(std::vector<InfoContact>& contacts) {
-    // // Используем локальную переменную InfoContact, 
-    //чтобы избежать прямого изменения вектора до завершения ввода
+    // // РСЃРїРѕР»СЊР·СѓРµРј Р»РѕРєР°Р»СЊРЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ InfoContact, 
+    //С‡С‚РѕР±С‹ РёР·Р±РµР¶Р°С‚СЊ РїСЂСЏРјРѕРіРѕ РёР·РјРµРЅРµРЅРёСЏ РІРµРєС‚РѕСЂР° РґРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ РІРІРѕРґР°
     InfoContact add;
-    std::cout << "Введите имя контакта: "; 
+    std::cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РєРѕРЅС‚Р°РєС‚Р°: "; 
     std::cin >> add.name;
-    // Очищаем буфер ввода, так как после std::cin
-    // остаётся символ новой строки, который мешает getline
+    // РћС‡РёС‰Р°РµРј Р±СѓС„РµСЂ РІРІРѕРґР°, С‚Р°Рє РєР°Рє РїРѕСЃР»Рµ std::cin
+    // РѕСЃС‚Р°С‘С‚СЃСЏ СЃРёРјРІРѕР» РЅРѕРІРѕР№ СЃС‚СЂРѕРєРё, РєРѕС‚РѕСЂС‹Р№ РјРµС€Р°РµС‚ getline
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    // Бесконечный цикл для телефона нужен, чтобы 
-    //гарантировать получение корректных данных
+    // Р‘РµСЃРєРѕРЅРµС‡РЅС‹Р№ С†РёРєР» РґР»СЏ С‚РµР»РµС„РѕРЅР° РЅСѓР¶РµРЅ, С‡С‚РѕР±С‹ 
+    //РіР°СЂР°РЅС‚РёСЂРѕРІР°С‚СЊ РїРѕР»СѓС‡РµРЅРёРµ РєРѕСЂСЂРµРєС‚РЅС‹С… РґР°РЅРЅС‹С…
     while (true) {
-        std::cout << "Введите номер телефона контакта: ";
+        std::cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РєРѕРЅС‚Р°РєС‚Р°: ";
         std::getline(std::cin, add.phone_number);
         if (IsValidPhoneNumber(add.phone_number))
             break;
-        std::cout << "Ошибка. Вы можете ввести только цифры, +, -, () и пробелы.\n";
+        std::cout << "РћС€РёР±РєР°. Р’С‹ РјРѕР¶РµС‚Рµ РІРІРµСЃС‚Рё С‚РѕР»СЊРєРѕ С†РёС„СЂС‹, +, -, () Рё РїСЂРѕР±РµР»С‹.\n";
     }
     while (true) {
-        std::cout << "Введите email контакта: "; 
+        std::cout << "Р’РІРµРґРёС‚Рµ email РєРѕРЅС‚Р°РєС‚Р°: "; 
         std::getline(std::cin, add.email);
         if (IsValidEmail(add.email)) {
             break;
         }
-        std::cout << "Ошибка. Некорректный ввод email.\n";
+        std::cout << "РћС€РёР±РєР°. РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІРІРѕРґ email.\n";
     }
     contacts.push_back(add);
     PrintContacts(contacts);
 }
 
 void DeleteContacts(std::vector<InfoContact>& contacts) {
-    // Проверяем пустоту списка в начале функции для предотвращения ошибок доступа
+    // РџСЂРѕРІРµСЂСЏРµРј РїСѓСЃС‚РѕС‚Сѓ СЃРїРёСЃРєР° РІ РЅР°С‡Р°Р»Рµ С„СѓРЅРєС†РёРё РґР»СЏ РїСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёСЏ РѕС€РёР±РѕРє РґРѕСЃС‚СѓРїР°
     if (contacts.empty()) {
-        std::cout << "Список контактов пуст. Удаление невозможно.\n\n";
+        std::cout << "РЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ РїСѓСЃС‚. РЈРґР°Р»РµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n\n";
         return;
     }
     PrintContacts(contacts);
     int index = GetIndex(contacts);
-    // pop_back() уменьшает размер вектора и уничтожает последний элемент
+    // pop_back() СѓРјРµРЅСЊС€Р°РµС‚ СЂР°Р·РјРµСЂ РІРµРєС‚РѕСЂР° Рё СѓРЅРёС‡С‚РѕР¶Р°РµС‚ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
     contacts.pop_back();
-    std::cout << "Удаление прошло успешно! " << std::endl;
+    std::cout << "РЈРґР°Р»РµРЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ! " << std::endl;
     PrintContacts(contacts);
 }
 
 void EditContact(std::vector<InfoContact>& contacts) {
     if (contacts.empty()) {
-        std::cout << "Список контактов пуст. Редактирование невозможно.\n" << std::endl;
+        std::cout << "РЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ РїСѓСЃС‚. Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n" << std::endl;
         return;
     }
     PrintContacts(contacts);
@@ -58,76 +58,76 @@ void EditContact(std::vector<InfoContact>& contacts) {
     int choice = GetEditChoice(); 
     switch (choice) {
         case 1: {
-            // getline() используется вместо cin>>, чтобы разрешить пробелы в именах
-            std::cout << "Новое имя: ";
+            // getline() РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІРјРµСЃС‚Рѕ cin>>, С‡С‚РѕР±С‹ СЂР°Р·СЂРµС€РёС‚СЊ РїСЂРѕР±РµР»С‹ РІ РёРјРµРЅР°С…
+            std::cout << "РќРѕРІРѕРµ РёРјСЏ: ";
             std::getline(std::cin, contacts[index - 1].name);
             break;
         }
         case 2: {
             while (true) {
                 
-                std::cout << "Новый телефон: ";
+                std::cout << "РќРѕРІС‹Р№ С‚РµР»РµС„РѕРЅ: ";
                 std::getline(std::cin, contacts[index - 1].phone_number);
                 if (IsValidPhoneNumber(contacts[index - 1].phone_number))
                     break;
-                std::cout << "Ошибка. Некорректный номер телефона.\n";
+                std::cout << "РћС€РёР±РєР°. РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°.\n";
             }
             break;
         }
         case 3: {
             
             while (true) {
-                std::cout << "Новый email: ";
+                std::cout << "РќРѕРІС‹Р№ email: ";
                 std::getline(std::cin, contacts[index - 1].email);
                 if (IsValidEmail(contacts[index - 1].email))
                     break;
-                std::cout << "Ошибка. Некорректный email.\n";
+                std::cout << "РћС€РёР±РєР°. РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ email.\n";
             }
             break;
         }
         case 4: {
-            //Для того чтобы пользователю было удобно изменить всю информацию
-            std::cout << "Новое имя: ";
+            //Р”Р»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ Р±С‹Р»Рѕ СѓРґРѕР±РЅРѕ РёР·РјРµРЅРёС‚СЊ РІСЃСЋ РёРЅС„РѕСЂРјР°С†РёСЋ
+            std::cout << "РќРѕРІРѕРµ РёРјСЏ: ";
             std::getline(std::cin, contacts[index - 1].name);
 
             while (true) {
-                std::cout << "Новый телефон: ";
+                std::cout << "РќРѕРІС‹Р№ С‚РµР»РµС„РѕРЅ: ";
                 std::getline(std::cin, contacts[index - 1].phone_number);
                 if (IsValidPhoneNumber(contacts[index - 1].phone_number))
                     break;
-                std::cout << "Ошибка. Некорректный номер телефона.\n";
+                std::cout << "РћС€РёР±РєР°. РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°.\n";
             }
 
             while (true) {
-                std::cout << "Новый email: ";
+                std::cout << "РќРѕРІС‹Р№ email: ";
                 std::getline(std::cin, contacts[index - 1].email);
                 if (IsValidEmail(contacts[index - 1].email))
                     break;
-                std::cout << "Ошибка. Некорректный email.\n";
+                std::cout << "РћС€РёР±РєР°. РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ email.\n";
             }
 
             break;
         }
         default: {
-            std::cout << "Неверный выбор\n";
+            std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ\n";
             return;
         }
     }
-    std::cout << "Изменение прошло успешно\n";
+    std::cout << "РР·РјРµРЅРµРЅРёРµ РїСЂРѕС€Р»Рѕ СѓСЃРїРµС€РЅРѕ\n";
     PrintContacts(contacts);
 }
 
 void ManageContactsMenu(std::vector<InfoContact>& contacts) {
     int choice;
     do {
-        std::cout << "Выберите один из следующих пунктов: " << std::endl;
-        std::cout << "1. Добавление контактов" << std::endl;
-        std::cout << "2. Удаление контактов" << std::endl;
-        std::cout << "3. Редактирование контактов" << std::endl;
-        std::cout << "4. Вернуться в основное меню" << std::endl;
+        std::cout << "Р’С‹Р±РµСЂРёС‚Рµ РѕРґРёРЅ РёР· СЃР»РµРґСѓСЋС‰РёС… РїСѓРЅРєС‚РѕРІ: " << std::endl;
+        std::cout << "1. Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРЅС‚Р°РєС‚РѕРІ" << std::endl;
+        std::cout << "2. РЈРґР°Р»РµРЅРёРµ РєРѕРЅС‚Р°РєС‚РѕРІ" << std::endl;
+        std::cout << "3. Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РєРѕРЅС‚Р°РєС‚РѕРІ" << std::endl;
+        std::cout << "4. Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РѕСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ" << std::endl;
         std::cin >> choice;
         if (std::cin.fail()) {
-            std::cout << "\nОшибка. Нужно ввести цифру от 1 до 4.\n\n";
+            std::cout << "\nРћС€РёР±РєР°. РќСѓР¶РЅРѕ РІРІРµСЃС‚Рё С†РёС„СЂСѓ РѕС‚ 1 РґРѕ 4.\n\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
@@ -146,11 +146,11 @@ void ManageContactsMenu(std::vector<InfoContact>& contacts) {
                 break;
             }
             case 4: {
-                std::cout << "Возврат в основное меню" << std::endl;
+                std::cout << "Р’РѕР·РІСЂР°С‚ РІ РѕСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ" << std::endl;
                 break;
             }
             default: {
-                std::cout << "Неверный ввод данных" << std::endl;
+                std::cout << "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ РґР°РЅРЅС‹С…" << std::endl;
                 break;
             }
         }
@@ -162,37 +162,37 @@ void ManageContactsMenu(std::vector<InfoContact>& contacts) {
 int GetEditChoice() {
     int choice;
     while (true) {
-        std::cout << "\nЧто вы хотите изменить?\n";
-        std::cout << "1. Имя контакта\n";
-        std::cout << "2. Телефон контакта\n";
-        std::cout << "3. Email контакта\n";
-        std::cout << "4. Изменить всю информацию\n";
-        std::cout << "Ваш выбор: ";
+        std::cout << "\nР§С‚Рѕ РІС‹ С…РѕС‚РёС‚Рµ РёР·РјРµРЅРёС‚СЊ?\n";
+        std::cout << "1. РРјСЏ РєРѕРЅС‚Р°РєС‚Р°\n";
+        std::cout << "2. РўРµР»РµС„РѕРЅ РєРѕРЅС‚Р°РєС‚Р°\n";
+        std::cout << "3. Email РєРѕРЅС‚Р°РєС‚Р°\n";
+        std::cout << "4. РР·РјРµРЅРёС‚СЊ РІСЃСЋ РёРЅС„РѕСЂРјР°С†РёСЋ\n";
+        std::cout << "Р’Р°С€ РІС‹Р±РѕСЂ: ";
         std::cin >> choice;
 
         if (!std::cin.fail() && choice >= 1 && choice <= 4) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return choice;
         }
-        std::cout << "Некорректный ввод.\n";
+        std::cout << "РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІРІРѕРґ.\n";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
 
 int GetIndex(const std::vector<InfoContact>& contacts) {
-    // Функция вынесена для повторного использования в разных операциях
+    // Р¤СѓРЅРєС†РёСЏ РІС‹РЅРµСЃРµРЅР° РґР»СЏ РїРѕРІС‚РѕСЂРЅРѕРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІ СЂР°Р·РЅС‹С… РѕРїРµСЂР°С†РёСЏС…
     int index;
     while(true) {
-        std::cout << "Введите номер (№) контакта, который хотите редактировать: ";
+        std::cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ (в„–) РєРѕРЅС‚Р°РєС‚Р°, РєРѕС‚РѕСЂС‹Р№ С…РѕС‚РёС‚Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ: ";
         std::cin >> index;
-        // Проверяем fail() для защиты от ввода символов вместо чисел
+        // РџСЂРѕРІРµСЂСЏРµРј fail() РґР»СЏ Р·Р°С‰РёС‚С‹ РѕС‚ РІРІРѕРґР° СЃРёРјРІРѕР»РѕРІ РІРјРµСЃС‚Рѕ С‡РёСЃРµР»
         if (!std::cin.fail() && index >= 1 && index <= contacts.size()) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return index;
         }
-        std::cout << "Неверный номер контакта. Попробуйте снова.\n";
-        // Очищаем флаги ошибок и буфер ввода, чтобы цикл не завис
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РЅРѕРјРµСЂ РєРѕРЅС‚Р°РєС‚Р°. РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
+        // РћС‡РёС‰Р°РµРј С„Р»Р°РіРё РѕС€РёР±РѕРє Рё Р±СѓС„РµСЂ РІРІРѕРґР°, С‡С‚РѕР±С‹ С†РёРєР» РЅРµ Р·Р°РІРёСЃ
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
@@ -200,17 +200,17 @@ int GetIndex(const std::vector<InfoContact>& contacts) {
 
 void Search(std::vector <InfoContact>& contacts) {
     if (contacts.empty()) {
-        std::cout << "\nСписок контактов пуст.\n\n";
+        std::cout << "\nРЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ РїСѓСЃС‚.\n\n";
         return;
     }
     bool found = false;
     std::string name;
-    std::cout << "Введите часть имени для поиска контакта: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ С‡Р°СЃС‚СЊ РёРјРµРЅРё РґР»СЏ РїРѕРёСЃРєР° РєРѕРЅС‚Р°РєС‚Р°: ";
     std::cin >> name;
-    std::cout << "Результат поиска: " << std::endl;
+    std::cout << "Р РµР·СѓР»СЊС‚Р°С‚ РїРѕРёСЃРєР°: " << std::endl;
     for (int i = 0; i < contacts.size(); i++) { 
         if (contacts[i].name.find(name) != std::string::npos) {
-            // Используем find(), а не ==, потому что нужен поиск по части имен
+            // РСЃРїРѕР»СЊР·СѓРµРј find(), Р° РЅРµ ==, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РЅСѓР¶РµРЅ РїРѕРёСЃРє РїРѕ С‡Р°СЃС‚Рё РёРјРµРЅ
             std::cout << i + 1 << ". " << contacts[i].name 
                 << ", " << contacts[i].phone_number 
                 << ", " << contacts[i].email << std::endl;
@@ -218,24 +218,24 @@ void Search(std::vector <InfoContact>& contacts) {
         }
     }
     if (!found) {
-        std::cout << "Контакты не найдены\n";
+        std::cout << "РљРѕРЅС‚Р°РєС‚С‹ РЅРµ РЅР°Р№РґРµРЅС‹\n";
     }
 }
 
 void SortByName(std::vector <InfoContact>& contacts) { 
     PrintContacts(contacts);
     if (contacts.empty()) {
-        std::cout << "\nСписок контактов пуст. Сортировка невозможна.\n" << std::endl;
+        std::cout << "\nРЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ РїСѓСЃС‚. РЎРѕСЂС‚РёСЂРѕРІРєР° РЅРµРІРѕР·РјРѕР¶РЅР°.\n" << std::endl;
         return;
     }
     if (contacts.size() == 1) {
-        std::cout << "\nНе хватает контактов для сортировки.\n";
+        std::cout << "\nРќРµ С…РІР°С‚Р°РµС‚ РєРѕРЅС‚Р°РєС‚РѕРІ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё.\n";
         PrintContacts(contacts);
         std::cout << std::endl;
         return;
     }
-    // Используем пузырьковую сортировку (метод простого обмена)
-    // потому что она простая для понимания
+    // РСЃРїРѕР»СЊР·СѓРµРј РїСѓР·С‹СЂСЊРєРѕРІСѓСЋ СЃРѕСЂС‚РёСЂРѕРІРєСѓ (РјРµС‚РѕРґ РїСЂРѕСЃС‚РѕРіРѕ РѕР±РјРµРЅР°)
+    // РїРѕС‚РѕРјСѓ С‡С‚Рѕ РѕРЅР° РїСЂРѕСЃС‚Р°СЏ РґР»СЏ РїРѕРЅРёРјР°РЅРёСЏ
     for (int i = 0; i < contacts.size() - 1; i++) {
         for (int j = 0; j < contacts.size() - i - 1; j++) {
             if (contacts[j].name > contacts[j + 1].name) {
@@ -243,49 +243,49 @@ void SortByName(std::vector <InfoContact>& contacts) {
             }
         }
     }
-    std::cout << "Контакты отсортированы по имени.\n";
+    std::cout << "РљРѕРЅС‚Р°РєС‚С‹ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅС‹ РїРѕ РёРјРµРЅРё.\n";
     PrintContacts(contacts);
 }
 
 void WritingToFile(const std::vector<InfoContact>& contacts, const std::string& filename) {
     if (contacts.empty()) {
-        std::cout << "Список контактов пуст. Сохранение в файл невозможно.\n" << std::endl;
+        std::cout << "РЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ РїСѓСЃС‚. РЎРѕС…СЂР°РЅРµРЅРёРµ РІ С„Р°Р№Р» РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n" << std::endl;
         return;
     }
-    // Проверяем открытие файла, потому что файл может не открыться
+    // РџСЂРѕРІРµСЂСЏРµРј РѕС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р°, РїРѕС‚РѕРјСѓ С‡С‚Рѕ С„Р°Р№Р» РјРѕР¶РµС‚ РЅРµ РѕС‚РєСЂС‹С‚СЊСЃСЏ
     std::ofstream file(filename);
     if (!file) {
-        std::cout << "Ошибка при открытии файла!\n";
+        std::cout << "РћС€РёР±РєР° РїСЂРё РѕС‚РєСЂС‹С‚РёРё С„Р°Р№Р»Р°!\n";
         return;
     }
-    //Выводит в файл пронумерованные контакты
+    //Р’С‹РІРѕРґРёС‚ РІ С„Р°Р№Р» РїСЂРѕРЅСѓРјРµСЂРѕРІР°РЅРЅС‹Рµ РєРѕРЅС‚Р°РєС‚С‹
     for (int i = 0; i < contacts.size(); i++) {
         file << i + 1 << ". " << contacts[i].name << ", " 
             << contacts[i].phone_number << ", " 
             << contacts[i].email << "\n";
     }
     file.close();
-    std::cout << "Контакты сохранены в файл " << filename << "\n\n";
+    std::cout << "РљРѕРЅС‚Р°РєС‚С‹ СЃРѕС…СЂР°РЅРµРЅС‹ РІ С„Р°Р№Р» " << filename << "\n\n";
 }
 
 void OutputFromFile(std::vector<InfoContact>& contacts, std::string filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
-        std::cout << "Не получилось открыть файл" << std::endl;
+        std::cout << "РќРµ РїРѕР»СѓС‡РёР»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»" << std::endl;
         return;
     }
-    // Очищаем вектор, потому что новые данные могут добавиться к старым
+    // РћС‡РёС‰Р°РµРј РІРµРєС‚РѕСЂ, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РЅРѕРІС‹Рµ РґР°РЅРЅС‹Рµ РјРѕРіСѓС‚ РґРѕР±Р°РІРёС‚СЊСЃСЏ Рє СЃС‚Р°СЂС‹Рј
     contacts.clear();
     std::string line;
     while (std::getline(file, line)) {
         if (!line.empty()) {
-             // Ищем позиции двух запятых, тк формат "имя, телефон, email"
+             // РС‰РµРј РїРѕР·РёС†РёРё РґРІСѓС… Р·Р°РїСЏС‚С‹С…, С‚Рє С„РѕСЂРјР°С‚ "РёРјСЏ, С‚РµР»РµС„РѕРЅ, email"
             int pos1 = line.find(',');
             int pos2 = line.find(',', pos1 + 1);
             
             if (pos1 != std::string::npos && pos2 != std::string::npos) {
                 InfoContact contact;
-                // Используем substr, потому что нужно взять части строки
+                // РСЃРїРѕР»СЊР·СѓРµРј substr, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РЅСѓР¶РЅРѕ РІР·СЏС‚СЊ С‡Р°СЃС‚Рё СЃС‚СЂРѕРєРё
                 contact.name = line.substr(0, pos1);
 
                 contact.phone_number = line.substr(pos1 + 1, pos2 - pos1 - 1);
@@ -295,25 +295,25 @@ void OutputFromFile(std::vector<InfoContact>& contacts, std::string filename) {
                 contacts.push_back(contact);
             }
             else {
-                std::cout << "Строка не соответствует формату: " << line << std::endl;
+                std::cout << "РЎС‚СЂРѕРєР° РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ С„РѕСЂРјР°С‚Сѓ: " << line << std::endl;
             }
         }
     }
     file.close();
-    std::cout << "Контакты загружены из файла " << filename << "\n";
+    std::cout << "РљРѕРЅС‚Р°РєС‚С‹ Р·Р°РіСЂСѓР¶РµРЅС‹ РёР· С„Р°Р№Р»Р° " << filename << "\n";
     PrintContacts(contacts);
 }
 
 void FileOperationsMenu(std::vector <InfoContact>& contacts) {
     int choice;
     do {
-        std::cout << "Выберите один из следующих пунктов: " << std::endl;
-        std::cout << "1. Сохранение контактов в файл" << std::endl;
-        std::cout << "2. Загрузка контактов из файла" << std::endl;
-        std::cout << "3. Выход в основное меню" << std::endl;
+        std::cout << "Р’С‹Р±РµСЂРёС‚Рµ РѕРґРёРЅ РёР· СЃР»РµРґСѓСЋС‰РёС… РїСѓРЅРєС‚РѕРІ: " << std::endl;
+        std::cout << "1. РЎРѕС…СЂР°РЅРµРЅРёРµ РєРѕРЅС‚Р°РєС‚РѕРІ РІ С„Р°Р№Р»" << std::endl;
+        std::cout << "2. Р—Р°РіСЂСѓР·РєР° РєРѕРЅС‚Р°РєС‚РѕРІ РёР· С„Р°Р№Р»Р°" << std::endl;
+        std::cout << "3. Р’С‹С…РѕРґ РІ РѕСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ" << std::endl;
         std::cin >> choice;
         if (std::cin.fail()) {
-            std::cout << "Введены неверные данные. Введите число.\n";
+            std::cout << "Р’РІРµРґРµРЅС‹ РЅРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ. Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ.\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
@@ -328,11 +328,11 @@ void FileOperationsMenu(std::vector <InfoContact>& contacts) {
                 break;
             }
             case 3: {
-                std::cout << "Выход в основное меню" << std::endl;
+                std::cout << "Р’С‹С…РѕРґ РІ РѕСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ" << std::endl;
                 break;
             }
             default: {
-                std::cout << "Введены неверные данные" << std::endl;
+                std::cout << "Р’РІРµРґРµРЅС‹ РЅРµРІРµСЂРЅС‹Рµ РґР°РЅРЅС‹Рµ" << std::endl;
                 break;
             }
         }
@@ -344,8 +344,8 @@ void FileOperationsMenu(std::vector <InfoContact>& contacts) {
 bool IsValidPhoneNumber(const std::string& phone) { 
     if (phone.empty()) return false;
     for (char c : phone) {
-        // Проверяем каждый символ, потому что нужно убедиться 
-        // в допустимости всех символов
+        // РџСЂРѕРІРµСЂСЏРµРј РєР°Р¶РґС‹Р№ СЃРёРјРІРѕР», РїРѕС‚РѕРјСѓ С‡С‚Рѕ РЅСѓР¶РЅРѕ СѓР±РµРґРёС‚СЊСЃСЏ 
+        // РІ РґРѕРїСѓСЃС‚РёРјРѕСЃС‚Рё РІСЃРµС… СЃРёРјРІРѕР»РѕРІ
         if (!isdigit(c) && c != '+' && c != '-' && c != '(' && c != ')' && c != ' ')
             return false;
     }
@@ -355,32 +355,32 @@ bool IsValidPhoneNumber(const std::string& phone) {
 bool IsValidEmail(const std::string& email) { 
     if (email.empty())
         return false;
-    // Запрещаем пробелы, потому что в email их не бывает
+    // Р—Р°РїСЂРµС‰Р°РµРј РїСЂРѕР±РµР»С‹, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РІ email РёС… РЅРµ Р±С‹РІР°РµС‚
     if (email.find(' ') != std::string::npos)
         return false;
-    // Проверяем наличие @, потому что это обязательный символ в email
+    // РџСЂРѕРІРµСЂСЏРµРј РЅР°Р»РёС‡РёРµ @, РїРѕС‚РѕРјСѓ С‡С‚Рѕ СЌС‚Рѕ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ СЃРёРјРІРѕР» РІ email
     int atPos = email.find('@');
     if (atPos == std::string::npos || atPos == 0 || atPos == email.size() - 1)
         return false;
 
     int dotPos = email.find('.', atPos);
-    // Проверяем точку после @, потому что домен должен содержать точку
+    // РџСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ РїРѕСЃР»Рµ @, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РґРѕРјРµРЅ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕС‡РєСѓ
     if (dotPos == std::string::npos || dotPos == email.size() - 1)
         return false;
     return true;
 }
 
 void PrintContacts(const std::vector<InfoContact>& contacts) {
-    // Выводит список контактов на экран, потому что пользователю будет удобнее
+    // Р’С‹РІРѕРґРёС‚ СЃРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ РЅР° СЌРєСЂР°РЅ, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ Р±СѓРґРµС‚ СѓРґРѕР±РЅРµРµ
     if (contacts.empty()) {
-        std::cout << "Список контактов пуст.\n";
+        std::cout << "РЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ РїСѓСЃС‚.\n";
         return;
     }
     std::cout << std::endl;
-    std::cout << "Список контактов: \n";
-    std::cout << "Имя, телефон, email.\n";
+    std::cout << "РЎРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ: \n";
+    std::cout << "РРјСЏ, С‚РµР»РµС„РѕРЅ, email.\n";
     for (int i = 0; i < contacts.size(); i++) {
-        // Нумеруем с 1, потому что пользователи привыкли к нумерации с 1
+        // РќСѓРјРµСЂСѓРµРј СЃ 1, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё РїСЂРёРІС‹РєР»Рё Рє РЅСѓРјРµСЂР°С†РёРё СЃ 1
         std::cout << i + 1 << ". " << contacts[i].name 
             << ", " << contacts[i].phone_number << ", " 
             << contacts[i].email << std::endl;
