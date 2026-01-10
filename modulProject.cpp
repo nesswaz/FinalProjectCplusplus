@@ -36,29 +36,11 @@ void AddInformation(std::vector<InfoContact>& contacts) {
 void DeleteContacts(std::vector<InfoContact>& contacts) {
     // Проверяем пустоту списка в начале функции для предотвращения ошибок доступа
     if (contacts.empty()) {
-        std::cout << "Список контактов пуст. Удаление невозможно.\n";
-        std::cout << std::endl;
+        std::cout << "Список контактов пуст. Удаление невозможно.\n\n";
         return;
     }
     PrintContacts(contacts);
-    int index;
-    while (true) {
-    std::cout << "Введите номер (№) контакта, который хотите удалить: ";
-    std::cin >> index;
-    // Проверяем fail() для защиты от ввода символов вместо чисел
-    if (!std::cin.fail() && index >= 1 && index <= contacts.size()) {
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            break;
-    }
-    std::cout << "Вы ввели неверный номер (№) контакта. Попробуйте снова.\n";
-    // Очищаем флаги ошибок и буфер ввода, чтобы цикл не завис
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
-
-    for (int i = index - 1; i < contacts.size() - 1; i++) {
-        contacts[i] = contacts[i + 1];
-    }
+    int index = GetIndex(contacts);
     // pop_back() уменьшает размер вектора и уничтожает последний элемент
     contacts.pop_back();
     std::cout << "Удаление прошло успешно! " << std::endl;
@@ -205,11 +187,13 @@ int GetIndex(const std::vector<InfoContact>& contacts) {
     while(true) {
         std::cout << "Введите номер (№) контакта, который хотите редактировать: ";
         std::cin >> index;
+        // Проверяем fail() для защиты от ввода символов вместо чисел
         if (!std::cin.fail() && index >= 1 && index <= contacts.size()) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return index;
         }
         std::cout << "Неверный номер контакта. Попробуйте снова.\n";
+        // Очищаем флаги ошибок и буфер ввода, чтобы цикл не завис
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
